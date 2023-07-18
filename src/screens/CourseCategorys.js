@@ -1,4 +1,11 @@
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
 

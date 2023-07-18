@@ -11,7 +11,7 @@ import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
 import HTML from "react-native-render-html";
 import { useWindowDimensions } from "react-native";
-import UserData from "./UserData";
+import CourseStudent from "./CourseStudent";
 
 const CourseDetails = ({ navigation, route }) => {
   const [value, setValue] = useState({});
@@ -108,7 +108,7 @@ const CourseDetails = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-      <UserData />
+      <CourseStudent id={id} />
     </ScrollView>
   );
 };
@@ -117,19 +117,19 @@ const CourseDetails = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
   },
   courseContainer: {
-    padding: 20,
+    padding: 15,
     backgroundColor: "rgba(255, 255, 255, 0.90)",
     textAlign: "center",
     borderRadius: 5,
     shadowColor: "grey",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.5,
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowOpacity: 0.5,
     shadowRadius: 8,
-    elevation: 8,
-    marginVertical: 20,
+    // elevation: 8,
+    // marginVertical: 20,
   },
   groupContainer: {
     flexDirection: "row",
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     color: "#344055",
     textTransform: "uppercase",
     fontWeight: "500",
-    paddingTop: 10,
+    // paddingTop: 10,
     paddingBottom: 15,
     fontFamily: "Nunito_700Bold",
     textAlign: "center",

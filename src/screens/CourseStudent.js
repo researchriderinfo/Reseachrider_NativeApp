@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
 
-const UserData = () => {
+const CourseStudent = ({ id }) => {
   let [fontsLoaded] = useFonts({
     Nunito_700Bold,
   });
@@ -15,14 +15,14 @@ const UserData = () => {
   const [isLoaded, setIsLoaded] = useState(true);
   const [myData, setMyData] = useState([]);
 
-  const getUserData = async () => {
+  const getCourseStudent = async () => {
     try {
       const response = await fetch(
-        "https://thapatechnical.github.io/userapi/users.json"
+        `https://researchrider.xyz/course/${id}/enrollment/payment-all`
       );
       const realData = await response.json();
+      console.log({ realData });
       setMyData(realData);
-      setIsLoaded(false);
     } catch (error) {
       console.log(error);
     }
@@ -30,6 +30,7 @@ const UserData = () => {
 
   useEffect(() => {
     getUserData();
+    getCourseStudent();
   }, []);
 
   // render the students cards
@@ -37,21 +38,20 @@ const UserData = () => {
     return (
       <View style={styles.card}>
         <View style={styles.imgContainer}>
-          <Image style={styles.imgStyle} source={{ uri: item.image }} />
+          <Image
+            style={styles.imgStyle}
+            source={{ uri: item.student_profile_pic }}
+          />
         </View>
 
         <View>
-          <View style={styles.bioDataContainer}>
-            <Text style={styles.bioData}> Bio-Data </Text>
-            <Text style={styles.idNumber}>
-              {item.id < 10 ? `#0${item.id}` : `#{item.id}`}
-            </Text>
-          </View>
-
           <View style={styles.mainContain}>
-            <Text style={styles.myName}> Name: {item.name} </Text>
-            <Text style={styles.myName}> email: {item.email} </Text>
-            <Text style={styles.myName}> mobile: {item.mobile} </Text>
+            <Text style={styles.myName}> {item.student_first_name} </Text>
+            <Text style={styles.myName}> {item.student_profession} </Text>
+            <Text style={styles.myName}>
+              {item.student_academic_discipline}
+            </Text>
+            <Text style={styles.myName}>{item.student_organization}</Text>
           </View>
         </View>
       </View>
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     minHeight: "100%",
     paddingVertical: 50,
     backgroundColor: "#ebedee",
+    elevation: 8,
   },
   card: {
     width: 250,
@@ -117,23 +118,26 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   imgStyle: {
-    width: "100%",
-    height: 180,
+    width: 120,
+    height: 120,
+    borderWidth: 0.5,
+    borderColor: "gray",
+    borderRadius: 100,
   },
   mainContain: {
     padding: 10,
-    backgroundColor: "#353535",
+    // backgroundColor: "#353535",
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
     paddingBottom: 20,
   },
   myName: {
     fontSize: 14,
-    color: "#fff",
+    color: "black",
     marginBottom: 10,
     alignSelf: "flex-start",
     textTransform: "capitalize",
   },
 });
 
-export default UserData;
+export default CourseStudent;

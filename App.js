@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./src/screens/Home";
 import About from "./src/screens/About";
 import Course from "./src/screens/Course";
-import UserData from "./src/screens/UserData";
 import {
   useFonts,
   Nunito_600SemiBold,
@@ -13,6 +12,8 @@ import AppLoading from "expo-app-loading";
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
 import CourseDetails from "./src/screens/CourseDetails";
+import AllCourse from "./src/screens/AllCourse";
+import CourseStudent from "./src/screens/CourseStudent";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -63,7 +64,7 @@ export default function App() {
             headerTitleAlign: "center",
           }}
           name="Group"
-          component={UserData}
+          component={CourseStudent}
         />
 
         {/* About screen */}
@@ -92,18 +93,31 @@ export default function App() {
         {/* Login screen */}
         <Stack.Screen name="Signup" component={Signup} />
 
+        {/* CourseDetails screen */}
         <Stack.Screen
-  options={{
-    headerTitleStyle: {
-      fontSize: 25,
-      fontFamily: "Nunito_600SemiBold",
-    },
-    headerTitleAlign: "center",
-  }}
-  name="CourseDetails"
-  component={CourseDetails}
-/>
+          options={{
+            headerTitleStyle: {
+              fontSize: 25,
+              fontFamily: "Nunito_600SemiBold",
+            },
+            headerTitleAlign: "center",
+          }}
+          name="CourseDetails"
+          component={CourseDetails}
+        />
 
+        {/* AllCourse screen */}
+        <Stack.Screen
+          options={{
+            headerTitleStyle: {
+              fontSize: 25,
+              fontFamily: "Nunito_600SemiBold",
+            },
+            headerTitleAlign: "center",
+          }}
+          name="AllCourse"
+          component={AllCourse}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

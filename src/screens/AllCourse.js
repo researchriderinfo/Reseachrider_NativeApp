@@ -20,7 +20,7 @@ const AllCourse = ({ navigation }) => {
       try {
         const response = await fetch("https://researchrider.xyz/course/all/");
         const data = await response.json();
-        setValue(data); // Do something with the data
+        setValue(data);
       } catch (error) {
         console.error(error);
       }
