@@ -9,7 +9,7 @@ import {
 import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
 
-const CourseCategorys = () => {
+const CourseCategorys = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     Nunito_700Bold,
   });
@@ -23,33 +23,45 @@ const CourseCategorys = () => {
       id: 1,
       name: "Skils & IT Courses",
       image: require("../../assets/course/skill.png"),
+      categroy: "Computer Science & Engineering",
     },
     {
       id: 2,
       name: "Freelancing Courses",
       image: require("../../assets/course/self-employed.png"),
+      categroy: "Freelancing",
     },
     {
       id: 3,
       name: "Professional Courses",
       image: require("../../assets/course/professionals.png"),
+      categroy: "professional",
     },
     {
       id: 4,
       name: "Education Courses",
       image: require("../../assets/course/reading.png"),
+      categroy: "Education",
     },
     {
       id: 5,
       name: "All Course",
       image: require("../../assets/course/two.png"),
+      categroy: "ok",
     },
   ];
 
   // render the course category cards
   const showCategoryData = ({ item }) => {
     return (
-      <View style={styles.card}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          navigation.navigate("AllCourse", {
+            categroy: item.categroy,
+          })
+        }
+      >
         <View style={styles.imgContainer}>
           <Image style={styles.imgStyle} source={item.image} />
         </View>
@@ -57,7 +69,7 @@ const CourseCategorys = () => {
         <View style={styles.bioDataContainer}>
           <Text style={styles.bioData}> {item.name.slice(0, 20)}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

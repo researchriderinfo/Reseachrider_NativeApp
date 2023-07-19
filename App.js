@@ -13,7 +13,9 @@ import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
 import CourseDetails from "./src/screens/CourseDetails";
 import AllCourse from "./src/screens/AllCourse";
-import CourseStudent from "./src/screens/CourseStudent";
+import CourseStudent from "./src/component/CourseComponent/CourseStudent";
+import { Image, View } from "react-native";
+import { Text } from "react-native";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -41,16 +43,27 @@ export default function App() {
 
         {/* course screen */}
         <Stack.Screen
-          options={{
-            headerTitleStyle: {
-              fontSize: 25,
-              fontFamily: "Nunito_600SemiBold",
-            },
-            headerTitle: "Explore Courses",
-            headerTitleAlign: "center",
-          }}
           name="Course"
           component={Course}
+          options={({ navigation }) => ({
+            headerTitleStyle: {
+              fontSize: 16,
+              fontFamily: "Nunito_600SemiBold",
+            },
+            headerTitle: "",
+            headerTitleAlign: "left",
+            headerRight: () => (
+              <>
+                <View>
+                  <Text style={{ fontSize: 16 }}>Md.Nazirul Islam</Text>
+                </View>
+                <Image
+                  source={require("./assets/user.png")}
+                  style={{ width: 40, height: 40, marginLeft: 10 }}
+                />
+              </>
+            ),
+          })}
         />
 
         {/* course screen */}

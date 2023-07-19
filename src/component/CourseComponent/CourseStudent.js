@@ -21,7 +21,6 @@ const CourseStudent = ({ id }) => {
         `https://researchrider.xyz/course/${id}/enrollment/payment-all`
       );
       const realData = await response.json();
-      console.log({ realData });
       setMyData(realData);
     } catch (error) {
       console.log(error);
@@ -29,7 +28,6 @@ const CourseStudent = ({ id }) => {
   };
 
   useEffect(() => {
-    getUserData();
     getCourseStudent();
   }, []);
 
@@ -38,21 +36,38 @@ const CourseStudent = ({ id }) => {
     return (
       <View style={styles.card}>
         <View style={styles.imgContainer}>
-          <Image
-            style={styles.imgStyle}
-            source={{ uri: item.student_profile_pic }}
-          />
+          {item.student_profile_pic ? (
+            <Image
+              style={styles.imgStyle}
+              source={{ uri: item.student_profile_pic }}
+            />
+          ) : (
+            <Image
+              style={styles.imgStyle}
+              source={require("../../../assets/user.png")}
+            />
+          )}
         </View>
 
-        <View>
-          <View style={styles.mainContain}>
+        <View style={styles.mainContain}>
+          {item.student_first_name && (
             <Text style={styles.myName}> {item.student_first_name} </Text>
+          )}
+
+          {item.student_profession && (
             <Text style={styles.myName}> {item.student_profession} </Text>
+          )}
+
+          {item.student_academic_discipline && (
             <Text style={styles.myName}>
               {item.student_academic_discipline}
             </Text>
-            <Text style={styles.myName}>{item.student_organization}</Text>
-          </View>
+          )}
+          <Text style={styles.myName}>
+            {item.student_organization
+              ? `${item.student_organization.slice(0, 20)}...`
+              : ""}
+          </Text>
         </View>
       </View>
     );
@@ -73,69 +88,46 @@ const CourseStudent = ({ id }) => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: "100%",
-    minHeight: "100%",
-    paddingVertical: 50,
-    backgroundColor: "#ebedee",
-    elevation: 8,
-  },
   card: {
-    width: 250,
-    // height: 350,
-    backgroundColor: "#fff",
+    width: 180,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ffff",
     borderRadius: 5,
     marginHorizontal: 10,
+    // elevation: 0.1,
   },
-  bioDataContainer: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#353535",
-    paddingVertical: 10,
-  },
-  idNumber: {
-    fontSize: 20,
-    color: "rgba(255, 255, 255, 0.5)",
-    paddingRight: 10,
-  },
-  bioData: {
-    fontSize: 30,
-    color: "#fff",
-  },
+
   mainHeader: {
     fontSize: 18,
     color: "#344055",
     fontWeight: "500",
     fontFamily: "Nunito_700Bold",
-    paddingLeft: 20,
+    paddingLeft: 10,
     paddingVertical: 10,
-    textTransform: "uppercase",
   },
   imgContainer: {
     padding: 10,
   },
   imgStyle: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderWidth: 0.5,
     borderColor: "gray",
     borderRadius: 100,
   },
   mainContain: {
     padding: 10,
-    // backgroundColor: "#353535",
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
-    paddingBottom: 20,
   },
   myName: {
     fontSize: 14,
     color: "black",
     marginBottom: 10,
-    alignSelf: "flex-start",
+    alignSelf: "center",
+    textAlign: "center",
     textTransform: "capitalize",
   },
 });

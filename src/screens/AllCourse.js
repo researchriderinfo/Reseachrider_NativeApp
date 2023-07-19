@@ -12,8 +12,12 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-const AllCourse = ({ navigation }) => {
+const AllCourse = ({ navigation, route }) => {
   const [value, setValue] = useState([]);
+
+  const data = route.params;
+
+  console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
