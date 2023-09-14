@@ -1,24 +1,35 @@
+import { Nunito_700Bold, useFonts } from "@expo-google-fonts/nunito";
+import Checkbox from "expo-checkbox";
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
   StyleSheet,
   Text,
-  View,
   TextInput,
   TouchableOpacity,
-  Alert,
+  View,
 } from "react-native";
-import React, { useState } from "react";
-import Checkbox from "expo-checkbox";
-import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
-import AppLoading from "expo-app-loading";
 
 const Contact = ({ navigation }) => {
-  let [fontsLoaded] = useFonts({
-    Nunito_700Bold,
-  });
 
-  if (!fontsLoaded) {
-    <AppLoading />;
+  useEffect(() => {
+  async function prepare() {
+    // Prevent the splash screen from hiding
+    await SplashScreen.preventAutoHideAsync();
+
+    const [fontsLoaded] = useFonts({
+      Nunito_700Bold,
+    });
+
+    if (!fontsLoaded) {
+     return null; 
+    }
+    await SplashScreen.hideAsync();
   }
+  
+  prepare();
+}, []);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

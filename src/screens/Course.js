@@ -1,13 +1,13 @@
-import React from "react";
-import { StyleSheet, FlatList, View } from "react-native";
-import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
+import { Nunito_700Bold, useFonts } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
+import React from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import Menu from "../component/Menu";
+import AllCourse from "./AllCourse";
 import CourseCategorys from "./CourseCategorys";
 import FreelancingCourses from "./FreelancingCourses";
 import ITCourses from "./ITCourses";
 import ProfessionalCourse from "./ProfessionalCourse";
-import AllCourse from "./AllCourse";
 
 const Course = ({ navigation, route }) => {
   let [fontsLoaded] = useFonts({
@@ -17,6 +17,8 @@ const Course = ({ navigation, route }) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+  
+
 
   return (
     <View style={styles.container}>

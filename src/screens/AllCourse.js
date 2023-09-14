@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
+  Dimensions,
   FlatList,
   Image,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View
 } from "react-native";
 import {
-  widthPercentageToDP as wp,
   heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
 } from "react-native-responsive-screen";
 
 const AllCourse = ({ navigation, route }) => {
   const [value, setValue] = useState([]);
-
-  const data = route.params;
-
-  console.log(data);
+  //  const [numColumns, setNumColumns] = useState(3);
+   const isSmallScreen = Dimensions.get("window").width < 600; 
+    const numColumns = isSmallScreen ? 2 : 3;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,13 +43,12 @@ const AllCourse = ({ navigation, route }) => {
     >
       <View>
         <Image style={styles.imgStyle} source={{ uri: item.cover_pic }} />
-      </View>
-      <View>
-        <View style={styles.bioDataContainer}>
-          <Text style={styles.bioData}> {`${item.name.slice(0, 19)} ...`}</Text>
+         <View style={styles.bioDataContainer}>
+          <Text style={styles.bioData}> {`${item.name.slice(0, 20)} ...`}</Text>
         </View>
         <Text style={styles.feeStyles}> &#2547; {item.enrollment_fee}</Text>
       </View>
+  
     </TouchableOpacity>
   );
 
@@ -58,7 +57,7 @@ const AllCourse = ({ navigation, route }) => {
       <Text style={styles.mainHeader}>All Courses</Text>
       <FlatList
         data={value}
-        numColumns={2}
+        numColumns={numColumns}
         renderItem={renderCard}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.flatListContent}
@@ -66,6 +65,8 @@ const AllCourse = ({ navigation, route }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: wp("2%"),
     justifyContent: "center",
     alignItems: "center",
-    height: hp("24%"),
+    height: hp("20%"),
   },
   mainHeader: {
     fontSize: 16,

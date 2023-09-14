@@ -1,14 +1,14 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
+import { Nunito_700Bold, useFonts } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
+import React, { useEffect, useState } from "react";
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const ITCourses = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
@@ -58,8 +58,7 @@ const ITCourses = ({ navigation }) => {
         <View>
           <View style={styles.bioDataContainer}>
             <Text style={styles.bioData}>
-              {" "}
-              {`${item.name.slice(0, 16)} ...`}
+              {`${item.name.slice(0,16)} ...`}
             </Text>
           </View>
           <Text style={styles.feeStyles}> &#2547; {item.enrollment_fee}</Text>

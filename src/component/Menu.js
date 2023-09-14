@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const Menu = () => {
   const navigation = useNavigation();
@@ -8,11 +8,11 @@ const Menu = () => {
     <View style={styles.menuContainer}>
       <TouchableOpacity
         style={styles.buttonStyle}
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("GroupHome")}
       >
         <Image
           style={styles.iconStyle}
-          source={require("../../assets/home.png")}
+          source={require("../../assets/group.png")}
         />
       </TouchableOpacity>
 
@@ -26,15 +26,15 @@ const Menu = () => {
         />
       </TouchableOpacity>
 
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.buttonStyle}
-        onPress={() => navigation.navigate("Group")}
+        onPress={() => navigation.navigate("More")}
       >
         <Image
           style={styles.iconStyle}
-          source={require("../../assets/group.png")}
+          source={require("../../assets/application.png")}
         />
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.buttonStyle}

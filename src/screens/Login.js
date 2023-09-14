@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { darkGreen } from "../component/Constants";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -18,8 +20,40 @@ const Login = (props) => {
 
   const navigation = useNavigation();
 
+
+ // Token Check Function
   const login = () => {
-    Alert.alert("LOGIN", `E-mail: ${email}, Password: ${password}`);
+
+    fetch(`https://researchrider.xyz/user/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data?.data?.is_active) {
+                    // Save user data to AsyncStorage
+                    AsyncStorage.setItem("id", data.data.id.toString());
+                    AsyncStorage.setItem("first_name", data.data.first_name);
+                    AsyncStorage.setItem("last_name", data.data.last_name);
+                    AsyncStorage.setItem("email", data.data.email);
+                    AsyncStorage.setItem("auth_token", data.data.token);
+          // Handle successful login
+          navigation.navigate("Course"); 
+        } else {
+          // Handle login failure
+          Alert.alert("Login Failed", "Invalid email or password.");
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        Alert.alert("Error", "An error occurred. Please try again later.");
+      });
   };
 
   return (
@@ -60,10 +94,8 @@ const Login = (props) => {
 
           <Text style={styles.password}>Forgot password?</Text>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.navigate("Course")}
-          >
+
+          <TouchableOpacity style={styles.button} onPress={login}>
             <Text style={{ color: "white", fontSize: 16 }}>LOGIN</Text>
           </TouchableOpacity>
 
@@ -103,6 +135,7 @@ const styles = StyleSheet.create({
 
   input: {
     padding: 8,
+    paddingLeft: 20,
     marginRight: 30,
     marginLeft: 30,
     fontSize: 16,
@@ -121,11 +154,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 20,
     fontSize: 14,
-
     borderRadius: 100,
-    width: 350,
     paddingVertical: 10,
     marginVertical: 10,
+    fontWeight: "bold"
   },
   tagLine: {
     fontSize: 28,

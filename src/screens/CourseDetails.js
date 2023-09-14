@@ -1,21 +1,21 @@
-import {
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  SafeAreaView,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
+import { Nunito_700Bold, useFonts } from "@expo-google-fonts/nunito";
 import AppLoading from "expo-app-loading";
+import React, { useEffect, useState } from "react";
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import HTML from "react-native-render-html";
-import { useWindowDimensions } from "react-native";
 import iconImage from "../../assets/arrow.png";
 import Accordion from "../component/CourseComponent/Accordion";
-import InstructorSlider from "../component/CourseComponent/InstructorSlider";
 import CourseStudent from "../component/CourseComponent/CourseStudent";
+import InstructorSlider from "../component/CourseComponent/InstructorSlider";
 import RelatedCourse from "../component/CourseComponent/RelatedCourse";
 
 const CourseDetails = ({ navigation, route }) => {
@@ -75,15 +75,15 @@ const CourseDetails = ({ navigation, route }) => {
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <View style={styles.courseContainer}>
-          <View>
+         
             <Image
               style={styles.cardImage}
               source={{ uri: value.cover_pic }}
-              resizeMode="contain"
+              resizeMode="stretch"
             />
-          </View>
+       
           <Text style={styles.mainHeader}>{value.name}</Text>
           <View style={styles.groupContainer}>
             <Image
@@ -232,10 +232,14 @@ const CourseDetails = ({ navigation, route }) => {
       </ScrollView>
 
       <View style={styles.buttonContainer}>
-        <Text style={styles.price}> &#2547; 1000 </Text>
+        <Text style={styles.price}> &#2547; {value.enrollment_fee} </Text>
         <TouchableOpacity
           style={styles.buttonStyle}
-          onPress={() => navigation.navigate("Course")}
+          onPress={() =>
+            navigation.navigate("Purchase", {
+              courseId: value.id,
+            })
+          }
         >
           <Text style={styles.buttonText}> Buy this course </Text>
         </TouchableOpacity>
@@ -248,11 +252,12 @@ const CourseDetails = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   courseContainer: {
-    padding: 15,
     backgroundColor: "rgba(255, 255, 255, 0.90)",
     textAlign: "center",
     borderRadius: 5,
-    // shadowColor: "grey",
+  },
+  container:{
+    padding: 15,
   },
   groupContainer: {
     flexDirection: "row",
@@ -270,9 +275,9 @@ const styles = StyleSheet.create({
     width: "100%",
     display: "flex",
     alignSelf: "center",
-    height: undefined,
-    aspectRatio: 1.5,
-    // resizeMode: "contain",
+    height: 200,
+    borderWidth: 0.5,
+    borderColor: "#e5e7eb",
   },
   groupLogo: {
     width: 45,

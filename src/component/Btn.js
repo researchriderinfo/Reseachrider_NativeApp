@@ -7,14 +7,16 @@ export default function Btn({ bgColor, btnLabel, textColor, Press }) {
       onPress={Press}
       style={{
         backgroundColor: bgColor,
-        borderRadius: 100,
-        alignItems: "center",
         width: 350,
-        paddingVertical: 5,
-        marginVertical: 10,
+        alignItems: "center",
+        padding: 10,
+        marginBottom: 10,
+        marginTop: 10,
+        fontSize: 14,
+        borderRadius: 100, 
       }}
     >
-      <Text style={{ color: textColor, fontSize: 22, fontWeight: "bold" }}>
+      <Text style={{ color: textColor, fontSize: 16, fontWeight: "bold", textTransform: 'uppercase' }}>
         {btnLabel}
       </Text>
     </TouchableOpacity>

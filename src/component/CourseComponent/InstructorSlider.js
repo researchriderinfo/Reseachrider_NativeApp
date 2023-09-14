@@ -1,16 +1,27 @@
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
-import React, { useState, useEffect } from "react";
-import { useFonts, Nunito_700Bold } from "@expo-google-fonts/nunito";
-import AppLoading from "expo-app-loading";
+import { Nunito_700Bold, useFonts } from "@expo-google-fonts/nunito";
+import * as SplashScreen from 'expo-splash-screen';
+import React, { useEffect, useState } from "react";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 
 const InstructorSlider = ({ id }) => {
-  let [fontsLoaded] = useFonts({
-    Nunito_700Bold,
-  });
+  
+useEffect(() => {
+  async function prepare() {
+    // Prevent the splash screen from hiding
+    await SplashScreen.preventAutoHideAsync();
 
-  if (!fontsLoaded) {
-    <AppLoading />;
+   const [fontsLoaded] = useFonts({
+      Nunito_700Bold,
+    });
+
+    if (!fontsLoaded) {
+       return null; 
+    }
+    await SplashScreen.hideAsync();
   }
+  
+  prepare();
+}, []);
 
   // const [isLoaded, setIsLoaded] = useState(true);
   const [instructors, setInstructors] = useState([]);
